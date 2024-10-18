@@ -8,6 +8,14 @@ public class Endereco {
 	private String localidade;
 	private String uf;
 	
+	public Endereco() {
+	}
+	
+	public Endereco(String cep) {
+		this();
+		this.setCep(cep);
+	}
+	
 	@Override
 	public String toString() {
 		return "Endereço: " + cep;

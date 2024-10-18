@@ -11,7 +11,10 @@ import org.springframework.stereotype.Component;
 import br.edu.infnet.elberth.model.domain.Alimenticio;
 import br.edu.infnet.elberth.model.domain.Eletronico;
 import br.edu.infnet.elberth.model.domain.Endereco;
+import br.edu.infnet.elberth.model.domain.Estado;
+import br.edu.infnet.elberth.model.domain.Municipio;
 import br.edu.infnet.elberth.model.domain.Vendedor;
+import br.edu.infnet.elberth.model.service.LocalizacaoService;
 import br.edu.infnet.elberth.model.service.VendedorService;
 
 @Component
@@ -19,10 +22,21 @@ public class Loader implements ApplicationRunner {
 	
 	@Autowired
 	private VendedorService vendedorService;
+	@Autowired
+	private LocalizacaoService localizacaoService;
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-
+		
+		for(Estado estado : localizacaoService.obterEstados()) {
+			System.out.println("ESTADO: " + estado.getNome());
+		}
+		
+		for(Municipio municipio : localizacaoService.obterMunicipios(33)) {
+			System.out.println("MUNICÍPIO: " + municipio.getNome());
+		}
+		
+		
 		FileReader file = new FileReader("files/vendedores.txt");
 		BufferedReader leitura = new BufferedReader(file);
 
@@ -37,15 +51,12 @@ public class Loader implements ApplicationRunner {
 			switch (campos[0].toUpperCase()) {
 			case "V":
 				
-				Endereco endereco = new Endereco();
-				endereco.setCep(campos[4]);
-
 				vendedor = new Vendedor();			
 				vendedor.setCpf(campos[1]);
 				vendedor.setEmail(campos[2]);
 				vendedor.setNome(campos[3]);
-				vendedor.setEndereco(endereco);				
-				
+				vendedor.setEndereco(new Endereco(campos[4]));				
+								
 				vendedorService.incluir(vendedor);
 				
 				break;
