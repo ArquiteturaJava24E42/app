@@ -15,6 +15,7 @@ import br.edu.infnet.elberth.model.domain.Estado;
 import br.edu.infnet.elberth.model.domain.Municipio;
 import br.edu.infnet.elberth.model.domain.Vendedor;
 import br.edu.infnet.elberth.model.service.LocalizacaoService;
+import br.edu.infnet.elberth.model.service.ProdutoService;
 import br.edu.infnet.elberth.model.service.VendedorService;
 
 @Component
@@ -24,6 +25,8 @@ public class Loader implements ApplicationRunner {
 	private VendedorService vendedorService;
 	@Autowired
 	private LocalizacaoService localizacaoService;
+	@Autowired
+	private ProdutoService produtoService;
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -57,7 +60,9 @@ public class Loader implements ApplicationRunner {
 				vendedor.setNome(campos[3]);
 				vendedor.setEndereco(new Endereco(campos[4]));				
 								
-				vendedorService.incluir(vendedor);
+				vendedor = vendedorService.incluir(vendedor);
+				
+				System.out.println("VENDEDOR ["+vendedor+"]");
 				
 				break;
 
@@ -69,6 +74,9 @@ public class Loader implements ApplicationRunner {
 				alimenticio.setPreco(Float.valueOf(campos[4]));
 				alimenticio.setCaracteristica(campos[5]);
 				alimenticio.setOrganico(Boolean.valueOf(campos[6]));
+				alimenticio.setVendedor(vendedor);
+				
+				produtoService.incluir(alimenticio);
 				
 				vendedor.getProdutos().add(alimenticio);				
 				
@@ -83,7 +91,10 @@ public class Loader implements ApplicationRunner {
 				eletronico.setPreco(Float.valueOf(campos[4]));
 				eletronico.setMarca(campos[5]);
 				eletronico.setGarantiaMeses(Integer.valueOf(campos[6]));
-
+				eletronico.setVendedor(vendedor);
+				
+				produtoService.incluir(eletronico);
+				
 				vendedor.getProdutos().add(eletronico);				
 				
 				break;

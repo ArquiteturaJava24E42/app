@@ -1,5 +1,10 @@
 package br.edu.infnet.elberth.model.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "TEletronico")
 public class Eletronico extends Produto {
 	private String marca;
 	private int garantiaMeses;
