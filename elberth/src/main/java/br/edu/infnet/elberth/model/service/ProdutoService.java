@@ -1,5 +1,7 @@
 package br.edu.infnet.elberth.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +16,9 @@ public class ProdutoService {
 	
 	public void incluir(Produto produto) {
 		produtoRepository.save(produto);
+	}
+	
+	public List<Produto> obterListaPorPreco(float precoInicial, float precoFinal){
+		return produtoRepository.findByPrecoBetween(precoInicial, precoFinal);
 	}
 }

@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "TProduto")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -26,6 +28,7 @@ public abstract class Produto {
 		
 	@ManyToOne
 	@JoinColumn(name = "idVendedor")
+	@JsonBackReference
 	private Vendedor vendedor;
 
 	public Integer getId() {

@@ -1,6 +1,19 @@
 package br.edu.infnet.elberth.model.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "TEndereco")
 public class Endereco {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
 	private String cep;
 	private String logradouro;
 	private String complemento;
@@ -21,6 +34,14 @@ public class Endereco {
 		return "Endereço: " + cep;
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getCep() {
 		return cep;
 	}

@@ -1,6 +1,7 @@
 package br.edu.infnet.elberth.model.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,9 @@ public class VendedorService {
 	
 	public Collection<Vendedor> obterLista(){
 		return (Collection<Vendedor>) vendedorRepository.findAll();
+	}
+	
+	public List<Vendedor> obterPorNome(String nome){
+		return vendedorRepository.findByNomeContaining(nome);
 	}
 }
