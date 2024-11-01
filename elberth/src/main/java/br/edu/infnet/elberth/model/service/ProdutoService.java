@@ -1,5 +1,6 @@
 package br.edu.infnet.elberth.model.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,10 @@ public class ProdutoService {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;	
+
+	public Collection<Produto> obterLista(){
+		return (Collection<Produto>) produtoRepository.findAll();
+	}
 	
 	public void incluir(Produto produto) {
 		produtoRepository.save(produto);
@@ -20,5 +25,9 @@ public class ProdutoService {
 	
 	public List<Produto> obterListaPorPreco(float precoInicial, float precoFinal){
 		return produtoRepository.findByPrecoBetween(precoInicial, precoFinal);
+	}
+
+	public long obterQtde() {
+		return produtoRepository.count();
 	}
 }

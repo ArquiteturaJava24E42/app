@@ -31,6 +31,17 @@ public abstract class Produto {
 	@JsonBackReference
 	private Vendedor vendedor;
 
+	@Override
+	public String toString() {
+
+		return String.format("%s - %d - %.2f - %s", 
+				descricao,
+				codigo,
+				preco,
+				estoque ? "estoque: sim" : "estoque: não"
+			);
+	}
+	
 	public Integer getId() {
 		return id;
 	}
