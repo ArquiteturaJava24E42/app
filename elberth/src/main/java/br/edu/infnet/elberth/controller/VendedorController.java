@@ -4,51 +4,86 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.infnet.elberth.model.domain.Vendedor;
 import br.edu.infnet.elberth.model.service.VendedorService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
+@RequestMapping("/vendedores")
 public class VendedorController {
 
 	@Autowired
 	private VendedorService vendedorService;
 	
-	@GetMapping(value = "/lista/vendedor")
-	public Collection<Vendedor> obterLista(){
-		
-		return vendedorService.obterLista();
+	private static final String MSG_INCLUSAO_SUCESSO = "Inclusão realizada com sucesso.";
+	private static final String MSG_EXCLUSAO_SUCESSO = "Exclusão realizada com sucesso.";
+	private static final String MSG_EXCLUSAO_NOT_FOUND = "Vendedor não encontrado.";
+	
+	@Operation(summary = "Recupera todos os vendedores existentes.")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucesso"),
+			@ApiResponse(responseCode = "500", description = "Erro interno do sistema")
+		})
+	@GetMapping
+	public ResponseEntity<Collection<Vendedor>> obterLista(){		
+		return ResponseEntity.ok(vendedorService.obterLista());
 	}
 	
-	@PostMapping(value = "/vendedor/incluir")
-	public String incluir(@RequestBody Vendedor vendedor) {
+	@Operation(summary = "Inclui um novo vendedor.")
+	@PostMapping(value = "/incluir")
+	public ResponseEntity<String> incluir(@RequestBody Vendedor vendedor) {
 		
 		vendedorService.incluir(vendedor);
 		
-		return "Inclusão realizada com sucesso.";
+		return ResponseEntity.status(HttpStatus.CREATED).body(MSG_INCLUSAO_SUCESSO);
 	}
 	
-	@DeleteMapping(value = "/vendedor/{id}/excluir")
-	public String excluir(@PathVariable Integer id) {
+	@Operation(summary = "Exclui um vendedor através do ID.")
+	@DeleteMapping(value = "/{id}/excluir")
+	public ResponseEntity<String> excluir(@PathVariable Integer id) {
 		
-		vendedorService.excluir(id);
-		
-		return "Exclusão realizada com sucesso.";
+		if(vendedorService.excluir(id)) {
+			return ResponseEntity.ok(MSG_EXCLUSAO_SUCESSO);
+		}
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(MSG_EXCLUSAO_NOT_FOUND);
 	}
 	
-	@GetMapping(value = "/vendedores/buscar/{nome}")
-	public List<Vendedor> obterPorNome(@PathVariable String nome){
-		return vendedorService.obterPorNome(nome);
+	@Operation(summary = "Busca um vendedor através do nome.")
+	@GetMapping(value = "/buscar/{nome}")
+	public ResponseEntity<List<Vendedor>> obterPorNome(@PathVariable String nome){
+		
+		List<Vendedor> vendedores = vendedorService.obterPorNome(nome);
+		
+		if(vendedores.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(vendedores);
+		}
+		
+		return ResponseEntity.ok(vendedores);
 	}	
 	
-	@GetMapping(value = "/vendedor/{id}")
-	public Vendedor obterPorId(@PathVariable Integer id) {
-		return vendedorService.obterPorId(id);
+	@Operation(summary = "Busca um vendedor através do ID.")
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Vendedor> obterPorId(@PathVariable Integer id) {
+		
+		Vendedor vendedor = vendedorService.obterPorId(id);
+		
+		if(vendedor == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+		
+		return ResponseEntity.ok(vendedor);
 	}
 }

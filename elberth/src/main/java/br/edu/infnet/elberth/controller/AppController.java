@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import br.edu.infnet.elberth.model.service.AlimenticioService;
+import br.edu.infnet.elberth.model.service.EletronicoService;
 import br.edu.infnet.elberth.model.service.ProdutoService;
 import br.edu.infnet.elberth.model.service.VendedorService;
 
@@ -15,14 +17,18 @@ public class AppController {
 	private VendedorService vendedorService;
 	@Autowired
 	private ProdutoService produtoService;
+	@Autowired
+	private AlimenticioService alimenticioService;
+	@Autowired
+	private EletronicoService eletronicoService;
 
 	@GetMapping(value = "/")
 	public String telaHome(Model model) {
 
 		model.addAttribute("qtdeVendedor", vendedorService.obterQtde());
 		model.addAttribute("qtdeProduto", produtoService.obterQtde());
-		model.addAttribute("qtdeAlimenticio", 123);
-		model.addAttribute("qtdeEletronico", 234);
+		model.addAttribute("qtdeAlimenticio", alimenticioService.obterQtde());
+		model.addAttribute("qtdeEletronico", alimenticioService.obterQtde());
 
 		return "home";
 	}
@@ -49,7 +55,7 @@ public class AppController {
 	public String eletronicoLista(Model model) {
 		
 		model.addAttribute("titulo", "Listagem de produtos eletrônicos");
-		model.addAttribute("listagem", produtoService.obterLista());
+		model.addAttribute("listagem", eletronicoService.obterLista());
 		
 		return telaHome(model);
 	}
@@ -58,7 +64,7 @@ public class AppController {
 	public String alimenticioLista(Model model) {
 		
 		model.addAttribute("titulo", "Listagem de produtos alimenticios");
-		model.addAttribute("listagem", produtoService.obterLista());
+		model.addAttribute("listagem", alimenticioService.obterLista());
 		
 		return telaHome(model);
 	}

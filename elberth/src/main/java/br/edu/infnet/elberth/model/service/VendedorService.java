@@ -29,8 +29,11 @@ public class VendedorService {
 		return vendedorRepository.save(vendedor);
 	}
 	
-	public void excluir(Integer id) {
+	public boolean excluir(Integer id) {
+		
 		vendedorRepository.deleteById(id);
+		
+		return true;
 	}
 	
 	public Collection<Vendedor> obterLista(){
