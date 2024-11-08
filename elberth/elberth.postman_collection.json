@@ -1,0 +1,374 @@
+{
+	"info": {
+		"_postman_id": "d00282ce-a5a2-4a82-9305-4750d42d7f32",
+		"name": "elberth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31614652",
+		"_collection_link": "https://www.postman.com/avionics-pilot-11981212/instituto-infnet/collection/sc2chb1/elberth?action=share&source=collection_link&creator=31614652"
+	},
+	"item": [
+		{
+			"name": "vendedor",
+			"item": [
+				{
+					"name": "obterLista",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/vendedores",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vendedores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "incluir",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"paulinho\",\r\n    \"cpf\": \"345345345345\",\r\n    \"email\": \"paulinh@moraes.com\",\r\n    \"endereco\": {\r\n        \"cep\": \"01001-000\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/vendedores/incluir",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vendedores",
+								"incluir"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "excluir",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/vendedores/2/excluir",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vendedores",
+								"2",
+								"excluir"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obterPorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/vendedores/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vendedores",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscarPorNome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/vendedores/buscar/moraes",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vendedores",
+								"buscar",
+								"moraes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "produto",
+			"item": [
+				{
+					"name": "filtrarPorPreco",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/produtos/filtrarPorPreco?min=10&max=30",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos",
+								"filtrarPorPreco"
+							],
+							"query": [
+								{
+									"key": "min",
+									"value": "10"
+								},
+								{
+									"key": "max",
+									"value": "30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "excluir",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/produto/2/excluir",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produto",
+								"2",
+								"excluir"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obterPorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/produto/123",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produto",
+								"123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obterLista",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/lista/produto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"lista",
+								"produto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "alterarPreco",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/produtos/alterar?id=123&preco=999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos",
+								"alterar"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "123"
+								},
+								{
+									"key": "preco",
+									"value": "999"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "alimenticio",
+			"item": [
+				{
+					"name": "incluir",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\t\"descricao\": \"sopa\",\r\n\t\t\"codigo\": 5,\r\n\t\t\"preco\": 10,\r\n\t\t\"estoque\": true,\r\n\t\t\"organico\": true,\r\n\t\t\"caracteristica\": \"sopão\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/alimenticios/incluir",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alimenticios",
+								"incluir"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obterLista",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/alimenticios",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alimenticios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "alterar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"descricao\": \"new coca-cola\",\r\n    \"codigo\": 1,\r\n    \"preco\": 10.0,\r\n    \"estoque\": false,\r\n    \"organico\": false,\r\n    \"caracteristica\": \"new normal\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/alimenticios/alterar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alimenticios",
+								"alterar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "eletronico",
+			"item": [
+				{
+					"name": "obterLista",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/lista/eletronico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"lista",
+								"eletronico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "incluir",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"geladeira\",\r\n    \"codigo\": 5,\r\n    \"preco\": 390.0,\r\n    \"estoque\": true,\r\n    \"marca\": \"gelada\",\r\n    \"garantiaMeses\": 24\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/eletronico/incluir",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"eletronico",
+								"incluir"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

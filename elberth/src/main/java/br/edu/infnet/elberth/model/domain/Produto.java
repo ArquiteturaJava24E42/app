@@ -9,6 +9,9 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -21,9 +24,15 @@ public abstract class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotBlank(message = "A descrição do produto é obrigatória.")
+	@Size(max = 50, message = "A descrição deve ter no máximo 50 caracteres.")	
 	private String descricao;
+
 	private int codigo;
+	
+	@DecimalMin(value = "0.1", message = "O preço deve ser maior que zero.")
 	private float preco;
+	
 	private boolean estoque;
 		
 	@ManyToOne

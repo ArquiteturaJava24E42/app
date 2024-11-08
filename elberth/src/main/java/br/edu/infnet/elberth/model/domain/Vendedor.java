@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -24,6 +26,8 @@ public class Vendedor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotBlank(message = "O nome do vendedor é obrigatório.")
+	@Size(min = 3, max = 50, message = "O nome deve ter entre 3 e 50 caracteres.")
 	private String nome;
 	private String cpf;
 	private String email;

@@ -8,9 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,14 +43,6 @@ public class ProdutoController {
 		
 		return ResponseEntity.ok(produtos);
 	}	
-
-	@PostMapping(value = "/produto/incluir")
-	public String incluir(@RequestBody Produto produto) {
-		
-		produtoService.incluir(produto);
-		
-		return "Inclusão realizada com sucesso.";
-	}
 	
 	@DeleteMapping(value = "/produto/{id}/excluir")
 	public String excluir(@PathVariable Integer id) {
@@ -64,5 +55,13 @@ public class ProdutoController {
 	@GetMapping(value = "/produto/{id}")
 	public Produto obterPorId(@PathVariable Integer id) {
 		return produtoService.obterPorId(id);
+	}
+
+	@PatchMapping(value = "/produtos/alterar")
+	public ResponseEntity<Produto> alterar(@RequestParam Integer id, @RequestParam float preco) {
+		
+		Produto produtoAtualizado = produtoService.alterar(id, preco);
+		
+		return ResponseEntity.ok(produtoAtualizado);
 	}
 }

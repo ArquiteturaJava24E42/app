@@ -3,6 +3,8 @@ package br.edu.infnet.elberth.controller;
 import java.util.Collection;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.infnet.elberth.Constantes;
 import br.edu.infnet.elberth.model.domain.Vendedor;
 import br.edu.infnet.elberth.model.service.VendedorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,10 +30,6 @@ public class VendedorController {
 	@Autowired
 	private VendedorService vendedorService;
 	
-	private static final String MSG_INCLUSAO_SUCESSO = "Inclusão realizada com sucesso.";
-	private static final String MSG_EXCLUSAO_SUCESSO = "Exclusão realizada com sucesso.";
-	private static final String MSG_EXCLUSAO_NOT_FOUND = "Vendedor não encontrado.";
-	
 	@Operation(summary = "Recupera todos os vendedores existentes.")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Sucesso"),
@@ -43,11 +42,11 @@ public class VendedorController {
 	
 	@Operation(summary = "Inclui um novo vendedor.")
 	@PostMapping(value = "/incluir")
-	public ResponseEntity<String> incluir(@RequestBody Vendedor vendedor) {
+	public ResponseEntity<String> incluir(@Valid @RequestBody Vendedor vendedor) {
 		
 		vendedorService.incluir(vendedor);
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(MSG_INCLUSAO_SUCESSO);
+		return ResponseEntity.status(HttpStatus.CREATED).body(Constantes.MSG_INCLUSAO_SUCESSO);
 	}
 	
 	@Operation(summary = "Exclui um vendedor através do ID.")
@@ -55,10 +54,10 @@ public class VendedorController {
 	public ResponseEntity<String> excluir(@PathVariable Integer id) {
 		
 		if(vendedorService.excluir(id)) {
-			return ResponseEntity.ok(MSG_EXCLUSAO_SUCESSO);
+			return ResponseEntity.ok(Constantes.MSG_EXCLUSAO_SUCESSO);
 		}
 
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(MSG_EXCLUSAO_NOT_FOUND);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Constantes.MSG_VENDEDOR_NOT_FOUND);
 	}
 	
 	@Operation(summary = "Busca um vendedor através do nome.")

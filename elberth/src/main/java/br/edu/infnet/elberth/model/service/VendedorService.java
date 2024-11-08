@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.edu.infnet.elberth.model.domain.Endereco;
@@ -37,11 +38,11 @@ public class VendedorService {
 	}
 	
 	public Collection<Vendedor> obterLista(){
-		return (Collection<Vendedor>) vendedorRepository.findAll();
+		return (Collection<Vendedor>) vendedorRepository.findAll(Sort.by(Sort.Order.asc("nome")));
 	}
 	
 	public List<Vendedor> obterPorNome(String nome){
-		return vendedorRepository.findByNomeContaining(nome);
+		return vendedorRepository.findByNomeContaining(nome, Sort.by(Sort.Order.asc("nome")));
 	}
 	
 	public long obterQtde() {
